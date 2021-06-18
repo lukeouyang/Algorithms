@@ -2,16 +2,16 @@ package graph.basic;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.TreeSet;
 import java.util.Scanner;
 
-public class AdjList {
+public class AdjSet {
 
     private int V;
     private int E;
-    private LinkedList<Integer>[] adj;
+    private TreeSet<Integer>[] adj;
 
-    public AdjList(String pathStr){
+    public AdjSet(String pathStr){
 
         File file = new File(pathStr);
 
@@ -19,9 +19,9 @@ public class AdjList {
 
             V = scanner.nextInt();
             if(V < 0) throw new IllegalArgumentException("V must be non-negative");
-            adj = new LinkedList[V];
+            adj = new TreeSet[V];
             for(int i = 0; i < V; i ++)
-                adj[i] = new LinkedList<Integer>();
+                adj[i] = new TreeSet<Integer>();
 
             E = scanner.nextInt();
             if(E < 0) throw new IllegalArgumentException("E must be non-negative");
@@ -63,12 +63,14 @@ public class AdjList {
         return adj[v].contains(w);
     }
 
-    public LinkedList<Integer> adj(int v){
+    public Iterable<Integer> adj(int v){
+    // public TreeSet<Integer> adj(int v){
         validateVertex(v);
         return adj[v];
     }
 
     public int degree(int v){
+        validateVertex(v);
         return adj[v].size();
     }
 
@@ -88,7 +90,7 @@ public class AdjList {
 
     public static void main(String[] args){
 
-        AdjList adjList = new AdjList("g.txt");
-        System.out.print(adjList);
+        AdjSet adjSet = new AdjSet("g.txt");
+        System.out.print(adjSet);
     }
 }
